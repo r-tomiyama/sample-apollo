@@ -6,7 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint --no-fix",
-    "fix": "vue-cli-service lint"
+    "fix": "vue-cli-service lint",
+    "preapollo:download": "rimraf ./src/graphql/__generated__/schema.graphql",
+    "apollo:download": "apollo client:download-schema ./src/graphql/__generated__/schema.graphql --endpoint=$npm_package_config_endpoint"
   },
   "dependencies": {
     "@vue/apollo-composable": "^4.0.0-alpha.8",
