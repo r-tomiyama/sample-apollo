@@ -8,7 +8,9 @@
     "lint": "vue-cli-service lint --no-fix",
     "fix": "vue-cli-service lint",
     "preapollo:download": "rimraf ./src/graphql/__generated__/schema.graphql",
-    "apollo:download": "apollo client:download-schema ./src/graphql/__generated__/schema.graphql --endpoint=$npm_package_config_endpoint"
+    "apollo:download": "apollo client:download-schema ./src/graphql/__generated__/schema.graphql --endpoint=$npm_package_config_endpoint",
+    "preapollo:codegen": "rimraf src/graphql/__generated__/globalTypes.ts src/query/__generated__",
+    "apollo:codegen": "apollo client:codegen --target=typescript --globalTypesFile=src/graphql/__generated__/globalTypes.ts"
   },
   "dependencies": {
     "@vue/apollo-composable": "^4.0.0-alpha.8",

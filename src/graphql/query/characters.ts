@@ -1,5 +1,6 @@
 import { useQuery } from "@vue/apollo-composable";
 import gql from "graphql-tag";
+import { getCharacters } from "./__generated__/getCharacters";
 
 const GET_CHARACTERS = gql`
   query getCharacters {
@@ -15,5 +16,5 @@ const GET_CHARACTERS = gql`
 `;
 
 export function useGetCharacters() {
-  return useQuery(GET_CHARACTERS);
+  return useQuery<getCharacters>(GET_CHARACTERS);
 }
