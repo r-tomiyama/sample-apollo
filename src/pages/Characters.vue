@@ -1,12 +1,14 @@
 <template>
   <v-container>
     <H1>キャラクター一覧</H1>
-    <CharacterList :characters="characters" />
+    <CharacterList :characters="charactersResult" />
   </v-container>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "@vue/composition-api";
+import { useGetCharacters } from "@/graphql/query/characters";
+import { useResult } from "@vue/apollo-composable";
 import CharacterList from "../components/CharacterList.vue";
 
 export default defineComponent({
@@ -15,12 +17,11 @@ export default defineComponent({
     CharacterList
   },
   setup() {
-    const characters = [
-      { id: 1, name: "hoge" },
-      { id: 2, name: "fuga" }
-    ];
+    const { result } = useGetCharacters();
+    const charactersResult = useResult(result, null);
+
     return {
-      characters
+      charactersResult
     };
   }
 });
