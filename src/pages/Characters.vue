@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <H1>キャラクター一覧</H1>
-    <CharacterList :characters="characters" />
+    <CharacterList :characters="characters" :loading="loading" />
   </v-container>
 </template>
 
@@ -33,7 +33,7 @@ export default defineComponent({
     CharacterList
   },
   setup() {
-    const { result } = useGetCharacters();
+    const { result, loading } = useGetCharacters();
     const charactersResult = useResult(result, null);
     const characters = computed(() =>
       charactersResult.value?.map(v => {
@@ -42,7 +42,8 @@ export default defineComponent({
     );
 
     return {
-      characters
+      characters,
+      loading
     };
   }
 });
