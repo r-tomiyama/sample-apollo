@@ -1,10 +1,13 @@
 import { useQuery } from "@vue/apollo-composable";
 import gql from "graphql-tag";
-import { getCharacters } from "./__generated__/getCharacters";
+import {
+  getCharacters,
+  getCharactersVariables
+} from "./__generated__/getCharacters";
 
 const GET_CHARACTERS = gql`
-  query getCharacters {
-    characters {
+  query getCharacters($name_contains: String) {
+    characters(where: { name_contains: $name_contains }) {
       id
       name
       work
@@ -15,6 +18,6 @@ const GET_CHARACTERS = gql`
   }
 `;
 
-export function useGetCharacters() {
-  return useQuery<getCharacters>(GET_CHARACTERS);
+export function useGetCharacters(params: getCharactersVariables) {
+  return useQuery<getCharacters>(GET_CHARACTERS, params);
 }

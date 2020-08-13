@@ -31,3 +31,7 @@ export interface getCharacters {
    */
   characters: getCharacters_characters[];
 }
+
+export interface getCharactersVariables {
+  name_contains?: string | null;
+}

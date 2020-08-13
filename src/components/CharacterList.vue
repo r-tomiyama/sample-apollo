@@ -4,11 +4,11 @@
       <v-card>
         <v-card-title>
           <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
+            v-model="filter.name"
+            clearable
+            hint="キーワードを入力してEnterで絞り込み"
+            label="名前"
+            @keydown.enter="filterAndRefetch"
           ></v-text-field>
         </v-card-title>
         <v-data-table
@@ -19,7 +19,6 @@
             showFirstLastPage: true
           }"
           :loading="loading"
-          :search="search"
           no-data-text="データがありません"
           loading-text="読み込み中"
           class="elevation-1"
@@ -30,8 +29,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/composition-api";
-
+import { defineComponent, reactive, SetupContext } from "@vue/composition-api";
+export interface Filter {
+  name?: string;
+}
 export default defineComponent({
   name: "CharacterList",
   props: {
@@ -43,19 +44,22 @@ export default defineComponent({
     },
     total: {
       default: 0
-    },
-    search: {
-      default: ""
     }
   },
-  setup() {
+  setup(_, context: SetupContext) {
     const headers = [
       { text: "名前", value: "name", width: "20%" },
       { text: "仕事", value: "work", width: "20%" },
       { text: "出演作", value: "appearsIn" }
     ];
-
-    return { headers };
+    const filter = reactive({
+      name: "",
+      work: undefined
+    });
+    function filterAndRefetch() {
+      context.emit("refetch-list", filter);
+    }
+    return { headers, filter, filterAndRefetch };
   }
 });
 </script>
